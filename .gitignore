@@ -2,3 +2,4 @@
 /docker-compose/mysql/data
 .DS_Store
 .env
+pocketbase
