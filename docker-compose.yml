@@ -19,3 +19,29 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker-compose/nginx/Dockerfile
+    ports:
+      - 8765:80
+    volumes:
+      - ./php:/var/www/html
+    depends_on:
+      - php
+  php:
+    build: 
+      context: .
+      dockerfile: ./docker-compose/php/Dockerfile
+    volumes:
+      - ./php:/var/www/html
+  reactui:
+    stdin_open: true
+    build:
+      dockerfile: ../docker-compose/react/Dockerfile
+      context: ./reactui
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/node_modules
+      - ./reactui:/app
